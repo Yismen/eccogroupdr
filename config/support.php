@@ -10,7 +10,7 @@ return [
         'web' => [
             'web',
             'auth',
-            // 'verified',
+            'verified',
         ]
     ],
     /**
