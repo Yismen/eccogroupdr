@@ -9,7 +9,7 @@
 
         <div class="input-group mb-3">
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                placeholder="{{ __('Name') }}" required autocomplete="name" autofocus>
+                placeholder="{{ __('Name') }}" value="{{ old('name') }}" required autocomplete="name" autofocus>
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-user"></span>
@@ -24,7 +24,7 @@
 
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                placeholder="{{ __('Email') }}" required autocomplete="email">
+                placeholder="{{ __('Email') }}" value="{{ old('email') }}" required autocomplete="email">
             <div class="input-group-append">
                 <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
