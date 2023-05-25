@@ -89,7 +89,7 @@
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2023-{{ now()->format('Y') }} <a href="{{ route('welcome') }}">{{
+            <strong>Copyright &copy; 2023-{{ now()->format('Y') }} <a href="/">{{
                     config('app.name')
                     }}</a>.</strong> All rights reserved.
         </footer>

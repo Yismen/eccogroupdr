@@ -18,7 +18,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('welcome');
+});
 
 Route::middleware(['auth'])->group(function () {
     Route::view('about', 'about')->name('about');
