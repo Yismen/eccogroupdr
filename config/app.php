@@ -18,6 +18,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'super_users' => env('SUPER_USERS', 'yjorge@eccocorpbpo.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
