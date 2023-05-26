@@ -16,14 +16,14 @@
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 </head>
 
-<body class="hold-transition bg-gray-light">
+<body class="hold-transition">
     @php
     $color = auth()->check() ? 'cyan' : 'indigo';
     @endphp
     <div class="wrapper">
         <div class="py-3">
             <div class="container">
-                <nav class="navbar navbar-expand-lg px-0">
+                <nav class="navbar navbar-expand-lg navbar-light bg-white px-0">
                     <a class="navbar-brand text-bold text-{{ $color }}" href="#">Ecco Group DR</a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -33,29 +33,26 @@
 
                     <div class="navbar-collapse collapse" id="navbarSupportedContent" style="">
                         <ul class="mr-auto navbar-nav">
-                            <li class="nav-item">
+                            {{-- <li class="nav-item">
                                 <a class="nav-link text-dark" href="#features">Features <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-dark" href="#testimonials">Testimonials</a>
-                            </li>
+                            </li> --}}
                         </ul>
-                        @auth
                         <ul
-                            class="align-items-center d-flex justify-content-between list-unstyled m-0 ml-5 text-decoration-none">
+                            class="align-items-lg-center align-items-start d-flex justify-content-between list-unstyled m-0 navbar-nav pt-3 pt-lg-0 text-decoration-none">
+                            @auth
                             <li class="nav-item">
                                 <a href="{{ route('home') }}" class="btn-sm btn bg-info">Visit</a>
                             </li>
-                        </ul>
-                        @else
-                        <ul
-                            class="align-items-center d-flex justify-content-between list-unstyled m-0 ml-5 text-decoration-none">
+                            @else
                             <li class="nav-item">
                                 <a href="{{ route('login') }}" class="btn-sm btn bg-{{ $color }}">Login</a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('register') }}" class="ml-2 text-dark">Register</a>
+                            <li class="ml-0 ml-lg-4 mt-2 mt-lg-0 nav-item">
+                                <a href="{{ route('register') }}" class="text-dark">Register</a>
                             </li>
                         </ul>
                         @endauth
@@ -87,9 +84,9 @@
             </h3>
             <p class="text-black-50 text-center">Some of what people say about it!</p>
 
-            <div class="mt-4 row">
-                <div class="col-sm-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 17%);">
+            <div class="mt-4 row" style=" row-gap: 15px; ">
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
                                 <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
@@ -106,8 +103,8 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 17%);">
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
                                 <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
@@ -124,8 +121,8 @@
                     </div>
                 </div>
 
-                <div class="col-sm-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 17%);">
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
                                 <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
@@ -140,6 +137,55 @@
                             </p>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="container py-5" id="features">
+            <h3 class="text-bold text-center">Designed to boost awerness and productivity</h3>
+            <p class="text-black-50 text-center">A whole lot of <span
+                    class="text-bold text-{{ $color }}">Features</span> to
+                make your job easier!</p>
+
+            <div class="row mt-4" style=" row-gap: 15px; ">
+                <div class="col-sm-6 col-md-4">
+                    <i class="fa fa-users text-{{ $color }}" style="font-size: 2rem;"></i>
+                    <h5 class="mt-3 text-bold">Human Resources</h5>
+                    <p class="text-black-50">
+                        Help to streamline HR processes, improve efficiency, enhance employee satisfaction, and enable
+                        HR professionals to focus on strategic initiatives rather than administrative tasks.
+                    </p>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <i class="fa fa-clock text-{{ $color }}" style="font-size: 2rem; font-weight: 300;"></i>
+                    <h5 class="mt-3 text-bold">Scheduled Reports</h5>
+                    <p class="text-black-50">
+                        Automated reports which can be sent on the clock as designed, to fixed or dynamic distribution
+                        lists.
+                    </p>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <i class="fa fa-ticket-alt text-{{ $color }}" style="font-size: 2rem;"></i>
+                    <h5 class="mt-3 text-bold">Tickets Support</h5>
+                    <p class="text-black-50">Request support accross all departments, track status, receive
+                        notifications on every step, rate the service, track department service levels.</p>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <i class="fa fa-award text-{{ $color }}" style="font-size: 2rem; "></i>
+                    <h5 class="mt-3 text-bold">Quality Assurances</h5>
+                    <p class="text-black-50">Notify supervisors when audit is completed, rank agents, identify areas of
+                        improvement, reinforce good behaviours. Make decisions based on results. Yes, continuous
+                        inprovement is possible.</p>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <i class="fa fa-question-circle text-{{ $color }}" style="font-size: 2rem; font-weight: 300;"></i>
+                    <h5 class="mt-3 text-bold">Surveys</h5>
+                    <p class="text-black-50">Gauge employees' satisfaction, identify weaknesses and assess strengths.
+                        Share results in a graphical way. Your team members matter, make sure they feel it.</p>
                 </div>
             </div>
 
@@ -152,61 +198,12 @@
             </div>
         </section>
 
-        <section class="container py-5" id="features">
-            <h3 class="text-bold text-center">Designed to boost awerness and productivity</h3>
-            <p class="text-black-50 text-center">A whole lot of <span
-                    class="text-bold text-{{ $color }}">Features</span> to
-                make your job easier!</p>
-
-            <div class="row mt-4">
-                <div class="col-sm-4">
-                    <i class="fa fa-users text-{{ $color }}" style="font-size: 2rem;"></i>
-                    <h5 class="mt-3 text-bold">Human Resources</h5>
-                    <p class="text-black-50">
-                        Help to streamline HR processes, improve efficiency, enhance employee satisfaction, and enable
-                        HR professionals to focus on strategic initiatives rather than administrative tasks.
-                    </p>
-                </div>
-
-                <div class="col-sm-4">
-                    <i class="fa fa-clock text-{{ $color }}" style="font-size: 2rem; font-weight: 300;"></i>
-                    <h5 class="mt-3 text-bold">Scheduled Reports</h5>
-                    <p class="text-black-50">
-                        Automated reports which can be sent on the clock as designed, to fixed or dynamic distribution
-                        lists.
-                    </p>
-                </div>
-
-                <div class="col-sm-4">
-                    <i class="fa fa-ticket-alt text-{{ $color }}" style="font-size: 2rem;"></i>
-                    <h5 class="mt-3 text-bold">Tickets Support</h5>
-                    <p class="text-black-50">Request support accross all departments, track status, receive
-                        notifications on every step, rate the service, track department service levels.</p>
-                </div>
-
-                <div class="col-sm-4">
-                    <i class="fa fa-award text-{{ $color }}" style="font-size: 2rem; "></i>
-                    <h5 class="mt-3 text-bold">Quality Assurances</h5>
-                    <p class="text-black-50">Notify supervisors when audit is completed, rank agents, identify areas of
-                        improvement, reinforce good behaviours. Make decisions based on results. Yes, continuous
-                        inprovement is possible.</p>
-                </div>
-
-                <div class="col-sm-4">
-                    <i class="fa fa-question-circle text-{{ $color }}" style="font-size: 2rem; font-weight: 300;"></i>
-                    <h5 class="mt-3 text-bold">Surveys</h5>
-                    <p class="text-black-50">Gauge employees' satisfaction, identify weaknesses and assess strengths.
-                        Share results in a graphical way. Your team members matter, make sure they feel it.</p>
-                </div>
-            </div>
-        </section>
-
 
         <!-- Main Footer -->
         <footer class="bg-{{ $color }} mt-4" style="padding: 6rem 0;">
             <div class="container">
                 <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-4  mt-2 mt-sm-0">
                         <h5>Ecco Group DR</h5>
                         <div class="text-white-50 d-flex flex-column">
                             <a href="tel:+1-809-583-1171" class="text-white-50">
@@ -226,11 +223,11 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mt-2 mt-sm-0">
 
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-4 mt-2 mt-sm-0">
                         <h6>Yismen Jorge</h6>
                         <div class="text-white-50 d-flex flex-column">
                             <a href="mailto:yjorge@eccocorpbpo.com" class="text-white-50">
