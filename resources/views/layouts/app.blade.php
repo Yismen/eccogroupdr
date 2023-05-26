@@ -13,7 +13,16 @@
     <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+    </style>
     @yield('styles')
+    @livewireStyles
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
+
+
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -57,7 +66,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="{{ route('home') }}" class="brand-link">
+            <a href="/" class="brand-link">
                 <img src="{{ asset('images/AdminLTELogo.png') }}" alt="AdminLTE Logo"
                     class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">{{ config('app.name') }}</span>
@@ -103,6 +112,7 @@
     <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
 
     @yield('scripts')
+    @livewireScripts
 </body>
 
 </html>

@@ -13,10 +13,16 @@ class AppSuperUsers
         $users = User::whereIn('email', $emails)->get();
 
         return $users->count() ? $users : $emails;
+    }
 
-        // return [
-        //     'emails' => $emails,
-        //     'users' => User::whereIn('email', $emails)->get()
-        // ];
+    public function has(string $email): bool
+    {
+        $users = $this->get();
+
+        if (is_array($users)) {
+            return in_array($email, $users);
+        }
+
+        return $users->contains('email', $email);
     }
 }
