@@ -6,6 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Illuminate\Validation\Rule;
 use App\Http\Livewire\Traits\HasConfirmation;
+use Flasher\Prime\Notification\NotificationInterface;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Form extends Component
@@ -23,17 +24,12 @@ class Form extends Component
         $this->user = new User();
     }
 
-    public function render()
+    public function edit($id)
     {
-        return view('livewire.users.form')
-            ->layout('layouts.app');
-    }
+        $this->user = User::withTrashed()->findOrFail($id);
 
-    public function edit(User $user)
-    {
         $this->authorize('update', $this->user);
 
-        $this->user = $user;
         $this->resetValidation();
 
         $this->dispatchBrowserEvent($this->modalName);
@@ -56,23 +52,82 @@ class Form extends Component
 
     public function delete()
     {
-        $this->validate();
-        $this->confirm('deleteConfirmed');
+        $this->confirm('deleteConfirmed', 'You are about to delete this user and all of his records. Are you sure?', NotificationInterface::ERROR);
     }
 
     protected function deleteConfirmed()
     {
         abort_if(auth()->user()->id === $this->user->id, 403, 'You can\'t delete yourself');
 
-        $this->user->delete();
+        $this->authorize('delete', $this->user);
 
-        $this->resetValidation();
+        $this->user->delete();
 
         $this->emit('userUpdated');
 
         $this->flash("User {$this->user->name} Deleted!", 'error');
+    }
 
-        $this->dispatchBrowserEvent('closeModal');
+    public function restore()
+    {
+        $this->confirm('restoreConfirmed', 'You are about to restore this user and all of his records. Are you sure?', NotificationInterface::INFO);
+    }
+
+    protected function restoreConfirmed()
+    {
+        abort_if(auth()->user()->id === $this->user->id, 403, 'You can\'t restore yourself');
+
+        $this->authorize('restore', $this->user);
+
+        $this->user->restore();
+
+        $this->emit('userUpdated');
+
+        $this->flash("User {$this->user->name} Restored!", 'info');
+    }
+
+    public function verify()
+    {
+        $this->confirm(
+            confirmation_method: 'verifyConfirmed',
+            // message: "Do you really want to unverify user {$this->user->name}?",
+            type: NotificationInterface::SUCCESS
+        );
+    }
+
+    public function verifyConfirmed()
+    {
+        abort_if(auth()->user()->id === $this->user->id, 403, 'You can\'t verify yourself');
+
+        $this->authorize('update', $this->user);
+
+        $this->user->forceFill(['email_verified_at' => now()])->save();
+
+        $this->emit('userUpdated');
+
+        $this->flash("User {$this->user->name} has been verified!", 'warning');
+    }
+
+    public function unverify()
+    {
+        $this->confirm(
+            confirmation_method: 'unverifyConfirmed',
+            message: "Do you really want to unverify user {$this->user->name}?",
+            type: NotificationInterface::WARNING
+        );
+    }
+
+    public function unverifyConfirmed()
+    {
+        abort_if(auth()->user()->id === $this->user->id, 403, 'You can\'t unverify yourself');
+
+        $this->authorize('update', $this->user);
+
+        $this->user->forceFill(['email_verified_at' => null])->save();
+
+        $this->emit('userUpdated');
+
+        $this->flash("User {$this->user->name} has been unverified!", 'error');
     }
 
     protected function rules()

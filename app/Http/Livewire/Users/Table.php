@@ -7,6 +7,7 @@ use App\Http\Livewire\AbstractDatatable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Livewire\Traits\HasConfirmation;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Flasher\Prime\Notification\NotificationInterface;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 
@@ -20,7 +21,9 @@ class Table extends AbstractDatatable
 
     public function builder(): Builder
     {
-        return User::query();
+        return User::query()
+            ->addSelect(['deleted_at'])
+            ->withTrashed();
     }
 
     public function columns(): array
@@ -38,6 +41,11 @@ class Table extends AbstractDatatable
                 ->searchable(),
             BooleanColumn::make('Verified', 'email_verified_at')
                 ->sortable(),
+            BooleanColumn::make('Active', 'id')
+                ->setCallback(function (string $value, $row) {
+                    return !$row->deleted_at;
+                })
+                ->sortable(),
             // Column::make('Updated at', 'updated_at')
             //     ->sortable(),
             Column::make('Actions', 'id')
@@ -48,22 +56,18 @@ class Table extends AbstractDatatable
     public function bulkActions(): array
     {
         return [
-            'activate' => 'Activate',
-            'inactivate' => 'Deactivate',
+            'verify' => 'Verify',
+            'unverify' => 'Unverify',
+            'restore' => 'Restore',
         ];
     }
 
-    public function activate()
+    public function verify()
     {
-        $this->confirm('activateConfirmed', 'Are you sure you want to activate these users?');
+        $this->confirm('verifyConfirmed', 'Are you sure you want to verify these users?', NotificationInterface::WARNING);
     }
 
-    public function inactivate()
-    {
-        $this->confirm('inactivateConfirmed', 'These users will no longer be able to log in the application unless they confirm their email. Are you sure of this action?');
-    }
-
-    protected function activateConfirmed()
+    protected function verifyConfirmed()
     {
         User::query()
             ->whereIn('id', $this->getSelected())
@@ -74,9 +78,18 @@ class Table extends AbstractDatatable
             ->forceFill(['email_verified_at' => now()])
             ->each
             ->save();
+
+        $this->clearSelected();
+
+        $this->flash('Users unverified', NotificationInterface::SUCCESS);
     }
 
-    protected function inactivateConfirmed()
+    public function unverify()
+    {
+        $this->confirm('unverifyConfirmed', 'These users will no longer be able to log in the application unless they confirm their email. Are you sure of this action?', NotificationInterface::ERROR);
+    }
+
+    protected function unverifyConfirmed()
     {
         User::query()
             ->whereIn('id', $this->getSelected())
@@ -87,12 +100,36 @@ class Table extends AbstractDatatable
             ->forceFill(['email_verified_at' => null])
             ->each
             ->save();
+
+        $this->clearSelected();
+
+        $this->flash('Users unverified', NotificationInterface::ERROR);
+    }
+
+    public function restore()
+    {
+        $this->confirm('restoreConfirmed', 'Are you sure you want to restore these users?', NotificationInterface::SUCCESS);
+    }
+
+    public function restoreConfirmed()
+    {
+        User::query()
+            ->onlyTrashed()
+            ->whereIn('id', $this->getSelected())
+            ->where('id', '!=', auth()->user()->id)
+            ->get()
+            ->each
+            ->restore();
+
+        $this->clearSelected();
+
+        $this->flash('Users unverified', NotificationInterface::INFO);
     }
 
     public function filters(): array
     {
         return [
-            SelectFilter::make('Active', 'email_verified_at')
+            SelectFilter::make('Verified', 'email_verified_at')
                 ->options([
                     '' => 'All',
                     'yes' => 'Yes',
@@ -106,6 +143,24 @@ class Table extends AbstractDatatable
                         },
                         function ($query) {
                             $query->whereNull('email_verified_at');
+                        }
+                    );
+                }),
+
+            SelectFilter::make('Active', 'deleted_at')
+                ->options([
+                    '' => 'All',
+                    'yes' => 'Yes',
+                    'no' => 'No',
+                ])
+                ->filter(function (Builder $query, string $value) {
+                    $query->when(
+                        $value === 'yes',
+                        function ($query) {
+                            $query->whereNull('deleted_at');
+                        },
+                        function ($query) {
+                            $query->whereNotNull('deleted_at');
                         }
                     );
                 }),
