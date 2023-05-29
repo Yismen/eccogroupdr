@@ -20,7 +20,8 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
-                        <livewire:users-table />
+                        <livewire:users.form />
+                        <livewire:users.table />
                     </div>
                 </div>
 

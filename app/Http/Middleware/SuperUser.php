@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Services\AppSuperUsers;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuperUser
@@ -16,9 +15,7 @@ class SuperUser
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $appSuperUsers = new AppSuperUsers();
-
-        abort_if($appSuperUsers->has($request->user()->email) === false, 403);
+        abort_if($request->user()->isSuperUser() === false, 403);
 
         return $next($request);
     }

@@ -37,6 +37,11 @@ trait HasConfirmation
         ->addInfo($message);
     }
 
+    public function flash(string $message, string $type = 'success', array $options = [])
+    {
+        return flasher($message, $type, $options);
+    }
+
     protected function getListeners()
     {
         return  array_merge(

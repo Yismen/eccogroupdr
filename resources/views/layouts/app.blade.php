@@ -18,10 +18,12 @@
             display: none !important;
         }
     </style>
-    @yield('styles')
-    @livewireStyles
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.12.1/dist/cdn.min.js"></script>
+    <!-- REQUIRED SCRIPTS -->
 
+    @vite('resources/js/app.js')
+    @stack('styles')
+    @livewireStyles
+    <script src="//unpkg.com/alpinejs" defer></script>
 
 </head>
 
@@ -78,6 +80,8 @@
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             @yield('content')
+
+            {{ $slot ?? '' }}
         </div>
         <!-- /.content-wrapper -->
 
@@ -105,14 +109,10 @@
     </div>
     <!-- ./wrapper -->
 
-    <!-- REQUIRED SCRIPTS -->
-
-    @vite('resources/js/app.js')
     <!-- AdminLTE App -->
-    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
-
-    @yield('scripts')
     @livewireScripts
+    @stack('scripts')
+    <script src="{{ asset('js/adminlte.min.js') }}" defer></script>
 </body>
 
 </html>

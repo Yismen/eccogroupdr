@@ -1,45 +1,35 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Users;
 
 use App\Models\User;
+use App\Http\Livewire\AbstractDatatable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Livewire\Traits\HasConfirmation;
 use Rappasoft\LaravelLivewireTables\Views\Column;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Filters\SelectFilter;
 use Rappasoft\LaravelLivewireTables\Views\Columns\BooleanColumn;
 
-class UsersTable extends DataTableComponent
+class Table extends AbstractDatatable
 {
     use HasConfirmation;
-    protected $model = User::class;
 
-    public function configure(): void
+    protected $listeners = [
+        'userUpdated' => '$refresh'
+    ];
+
+    public function builder(): Builder
     {
-        $this->theme = 'bootstrap-4';
-        $this->setPrimaryKey('id');
-        $this->setQueryStringDisabled();
-        $this->setColumnSelectDisabled();
-
-        $this->setTableAttributes([
-            'class' => 'table-sm table-hover',
-        ]);
-    }
-
-    public function bulkActions(): array
-    {
-        return [
-            'activate' => 'Activate',
-            'inactivate' => 'Deactivate',
-        ];
+        return User::query();
     }
 
     public function columns(): array
     {
+        $this->disableCreateButton();
+        // $this->disableEditButton();
+        $this->disableShowButton();
+
         return [
-            Column::make('Id', 'id')
-                ->hideIf(true),
             Column::make('Name', 'name')
                 ->sortable()
                 ->searchable(),
@@ -50,6 +40,16 @@ class UsersTable extends DataTableComponent
                 ->sortable(),
             // Column::make('Updated at', 'updated_at')
             //     ->sortable(),
+            Column::make('Actions', 'id')
+                ->view('tables.actions')
+        ];
+    }
+
+    public function bulkActions(): array
+    {
+        return [
+            'activate' => 'Activate',
+            'inactivate' => 'Deactivate',
         ];
     }
 
@@ -110,32 +110,5 @@ class UsersTable extends DataTableComponent
                     );
                 }),
         ];
-    }
-
-    public function applySearch(): Builder
-    {
-        if ($this->searchIsEnabled() && $this->hasSearch()) {
-            $searchableColumns = $this->getSearchableColumns();
-
-            if ($searchableColumns->count()) {
-                $this->setBuilder($this->getBuilder()->where(function ($query) use ($searchableColumns) {
-                    $searchTerms = preg_split("/[\s]+/", $this->getSearch(), -1, PREG_SPLIT_NO_EMPTY);
-
-                    foreach ($searchTerms as $value) {
-                        $query->where(function ($query) use ($searchableColumns, $value) {
-                            foreach ($searchableColumns as $index => $column) {
-                                if ($column->hasSearchCallback()) {
-                                    ($column->getSearchCallback())($query, $this->getSearch());
-                                } else {
-                                    $query->{$index === 0 ? 'where' : 'orWhere'}($column->getColumn(), 'like', '%' . $value . '%');
-                                }
-                            }
-                        });
-                    }
-                }));
-            }
-        }
-
-        return $this->getBuilder();
     }
 }
