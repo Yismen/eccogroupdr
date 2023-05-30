@@ -39,7 +39,7 @@
             @endif
 
             @if ($user->email_verified_at)
-            <button class="btn btn-warning btn-sm" wire:click.prevent='unverify'>Unverifyy</button>
+            <button class="btn btn-warning btn-sm" wire:click.prevent='unverify'>Unverify</button>
             @else
             <button class="btn btn-success btn-sm" wire:click.prevent='verify'>Verify</button>
             @endif
