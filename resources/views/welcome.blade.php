@@ -14,6 +14,7 @@
     <!-- Theme style -->
 
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    @vite('resources/css/welcome.css')
 </head>
 
 <body class="hold-transition">
@@ -46,6 +47,15 @@
                             @auth
                             <li class="nav-item">
                                 <a href="{{ route('home') }}" class="btn-sm btn bg-info">Visit</a>
+                            </li>
+                            <li class="ml-0 ml-lg-2 mt-2 mt-lg-0 nav-item text-dark text-sm">
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <a href="{{ route('logout') }}"
+                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </a>
+                                </form>
                             </li>
                             @else
                             <li class="nav-item">
@@ -86,16 +96,16 @@
 
             <div class="mt-4 row" style=" row-gap: 15px; ">
                 <div class="col-md-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                    <div class="p-4 rounded testimonials">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
-                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <i class="fa fa-quote-right mr-4 text-cyan" style="font-size: 1.5rem"></i>
                                 <div class="d-flex flex-column">
-                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
-                                    <p>Workforce Manager</p>
+                                    <h5 class="m-0 text-sm">Yismen Jorge</h5>
+                                    <p class="text-black-50 text-sm">Workforce Manager</p>
                                 </div>
                             </div>
-                            <p class="text-black-50 font-italic">
+                            <p class="text-sm">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
                                 magnam itaque, in nesciunt veritatis..
                             </p>
@@ -104,16 +114,16 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                    <div class="p-4 rounded testimonials">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
-                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <i class="fa fa-quote-right mr-4 text-cyan" style="font-size: 1.5rem"></i>
                                 <div class="d-flex flex-column">
-                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
-                                    <p>Workforce Manager</p>
+                                    <h5 class="m-0 text-sm">Yismen Jorge</h5>
+                                    <p class="text-black-50 text-sm">Workforce Manager</p>
                                 </div>
                             </div>
-                            <p class="text-black-50 font-italic">
+                            <p class="text-sm">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
                                 magnam itaque, in nesciunt veritatis..
                             </p>
@@ -122,16 +132,16 @@
                 </div>
 
                 <div class="col-md-4">
-                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                    <div class="p-4 rounded testimonials">
                         <div class="d-flex flex-column">
                             <div class="d-flex justify-content-start">
-                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <i class="fa fa-quote-right mr-4 text-cyan" style="font-size: 1.5rem"></i>
                                 <div class="d-flex flex-column">
-                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
-                                    <p>Workforce Manager</p>
+                                    <h5 class="m-0 text-sm">Yismen Jorge</h5>
+                                    <p class="text-black-50 text-sm">Workforce Manager</p>
                                 </div>
                             </div>
-                            <p class="text-black-50 font-italic">
+                            <p class="text-sm">
                                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
                                 magnam itaque, in nesciunt veritatis..
                             </p>
@@ -139,6 +149,64 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="mt-4 row" style=" row-gap: 15px; ">
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <div class="d-flex flex-column">
+                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
+                                    <p>Workforce Manager</p>
+                                </div>
+                            </div>
+                            <p class="text-black-50 font-italic">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
+                                magnam itaque, in nesciunt veritatis..
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <div class="d-flex flex-column">
+                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
+                                    <p>Workforce Manager</p>
+                                </div>
+                            </div>
+                            <p class="text-black-50 font-italic">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
+                                magnam itaque, in nesciunt veritatis..
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div class="p-4 rounded shadow" style="background-color: rgb(0 0 0 / 10%);">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex justify-content-start">
+                                <i class="fa fa-quote-right mr-4 text-{{ $color }}" style="font-size: 1.5rem"></i>
+                                <div class="d-flex flex-column">
+                                    <h5 class="text-bold m-0">Yismen Jorge</h5>
+                                    <p>Workforce Manager</p>
+                                </div>
+                            </div>
+                            <p class="text-black-50 font-italic">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea maxime dolores perferendis
+                                magnam itaque, in nesciunt veritatis..
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div> --}}
         </section>
 
         <section class="container py-5" id="features">
