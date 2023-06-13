@@ -24,7 +24,7 @@
     <div class="wrapper">
         <div class="py-3">
             <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light bg-white px-0">
+                <nav class="navbar navbar-expand-lg navbar-white px-0">
                     <a class="navbar-brand text-bold text-{{ $color }}" href="#">Ecco Group DR</a>
                     <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
                         data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -46,7 +46,7 @@
                             class="align-items-lg-center align-items-start d-flex justify-content-between list-unstyled m-0 navbar-nav pt-3 pt-lg-0 text-decoration-none">
                             @auth
                             <li class="nav-item">
-                                <a href="{{ route('home') }}" class="btn-sm btn bg-info">Visit</a>
+                                <a href="{{ route('home') }}" class="btn-sm btn btn-info">Visit</a>
                             </li>
                             <li class="ml-0 ml-lg-2 mt-2 mt-lg-0 nav-item text-dark text-sm">
                                 <form method="POST" action="{{ route('logout') }}">
@@ -59,7 +59,7 @@
                             </li>
                             @else
                             <li class="nav-item">
-                                <a href="{{ route('login') }}" class="btn-sm btn bg-{{ $color }}">Login</a>
+                                <a href="{{ route('login') }}" class="btn-sm btn b-{{ $color }}">Login</a>
                             </li>
                             <li class="ml-0 ml-lg-4 mt-2 mt-lg-0 nav-item">
                                 <a href="{{ route('register') }}" class="text-dark">Register</a>
@@ -80,9 +80,11 @@
                 By offering timely and useful data</h5>
             <div class="mt-4">
                 @auth
-                <a href="{{ route('home') }}" class="bg-{{ $color }} btn btn-lg shadow shadow-sm">Visit App</a>
+                <a href="{{ route('home') }}" class="bg-{{ $color }} btn btn-default btn-lg shadow shadow-sm">Visit
+                    App</a>
                 @else
-                <a href="{{ route('login') }}" class="bg-{{ $color }} btn btn-lg shadow shadow-sm">Log In</a>
+                <a href="{{ route('login') }}" class="bg-{{ $color }} btn btn-default btn-lg shadow shadow-sm">Log
+                    In</a>
                 @endauth
                 <a href="#features" class="ml-4 text-dark text-lg ">Learn More</a>
             </div>
