@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
     <style>
         [x-cloak] {
             display: none !important;

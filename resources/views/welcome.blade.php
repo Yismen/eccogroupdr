@@ -14,6 +14,7 @@
     <!-- Theme style -->
 
     <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+    <link rel="shortcut icon" href="{{ asset('images/favicon.ico') }}" />
     @vite('resources/css/welcome.css')
 </head>
 
