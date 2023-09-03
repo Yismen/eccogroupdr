@@ -206,16 +206,16 @@
         },
         {
             "name": "dainsys/support-tickets",
-            "version": "v1.3.7",
+            "version": "v1.3.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yismen/support-tickets.git",
-                "reference": "663912a599f8b1d91265a18380c149a0d8aa0bfa"
+                "reference": "f5b018949e0ad86d63648ecfe8c4ad75cfb15a98"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yismen/support-tickets/zipball/663912a599f8b1d91265a18380c149a0d8aa0bfa",
-                "reference": "663912a599f8b1d91265a18380c149a0d8aa0bfa",
+                "url": "https://api.github.com/repos/Yismen/support-tickets/zipball/f5b018949e0ad86d63648ecfe8c4ad75cfb15a98",
+                "reference": "f5b018949e0ad86d63648ecfe8c4ad75cfb15a98",
                 "shasum": ""
             },
             "require": {
@@ -264,9 +264,9 @@
             "description": "Support and recipients management package for Dainsys. This package allows you to Associate recipients to your department files.",
             "support": {
                 "issues": "https://github.com/Yismen/support-tickets/issues",
-                "source": "https://github.com/Yismen/support-tickets/tree/v1.3.7"
+                "source": "https://github.com/Yismen/support-tickets/tree/v1.3.8"
             },
-            "time": "2023-09-03T20:02:28+00:00"
+            "time": "2023-09-03T20:40:00+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
