@@ -1,0 +1,17 @@
+{
+  "resources/css/welcome.css": {
+    "file": "assets/welcome-edd7e4e9.css",
+    "isEntry": true,
+    "src": "resources/css/welcome.css"
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-3101dd16.js",
+    "isEntry": true,
+    "src": "resources/js/app.js"
+  },
+  "resources/sass/app.scss": {
+    "file": "assets/app-cb9003ac.css",
+    "isEntry": true,
+    "src": "resources/sass/app.scss"
+  }
+}
